@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>171 TDVD - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #1a1a1a, #2b2b2b, #1f1f1f, #111);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .login-container {
+      background: rgba(0,0,0,0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.7);
+      width: 320px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: #e50914;
+      text-shadow: 0 0 10px #e50914, 0 0 20px #ff2a2a;
+    }
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+    input:focus {
+      box-shadow: 0 0 10px #e50914;
+    }
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(90deg, #ff0000, #ff4c4c);
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-login:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff0000;
+    }
+    .error {
+      color: #ff4c4c;
+      margin-bottom: 10px;
+      font-size: 14px;
+      height: 18px;
+    }
+    .options {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .options span {
+      color: #ff4c4c;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+    .options span:hover {
+      color: #e50914;
+    }
+    .telegram-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      background: #0088cc;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .telegram-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #0088cc;
+    }
+    .telegram-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h1>171 TDVD</h1>
+  <div class="error" id="errorMsg"></div>
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button class="btn-login" onclick="login()">Entrar</button>
+
+  <!-- Comprar plano -->
+  <div class="options">
+    <span onclick="abrirTelegram()">Comprar plano</span>
+  </div>
+
+  <!-- Botão Telegram -->
+  <div class="telegram-btn" onclick="abrirTelegram()">
+    <svg viewBox="0 0 240 240">
+      <path d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm55.2 80.4l-22.4 105.6c-1.6 7.2-5.6 8.8-11.2 5.6l-30.8-22.8-14.8 14.4c-1.6 1.6-2.8 2.8-5.6 2.8l2-28.4 51.6-46.6c2.4-2.4-0.4-3.6-3.6-1.2l-63.6 40-27.4-8.6c-6-1.8-6.2-6-1.2-8.8l106-41.2c4.8-1.8 9 2.8 7.4 8.2z"/>
+    </svg>
+  </div>
+</div>
+
+<script type="module">
+  // Import Firebase 12.7.0
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-3E6x4i8PjCOCcZ34NthEmVBlehEcwC4",
+    authDomain: "miniapplogin.firebaseapp.com",
+    databaseURL: "https://miniapplogin-default-rtdb.firebaseio.com",
+    projectId: "miniapplogin",
+    storageBucket: "miniapplogin.firebasestorage.app",
+    messagingSenderId: "1024375085066",
+    appId: "1:1024375085066:web:0baabb6b1906d7f80427f3",
+    measurementId: "G-NK1VZS38W8"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+
+  // Login
+  async function login() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorDiv = document.getElementById('errorMsg');
+    errorDiv.textContent = '';
+
+    if (!username || !password) {
+      errorDiv.textContent = "Preencha todos os campos!";
+      return;
+    }
+
+    try {
+      const snapshot = await get(ref(db, 'usuarios/' + username));
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const hoje = new Date();
+        const expira = new Date(data.expira_em);
+
+        if (data.senha !== password) {
+          errorDiv.textContent = "Senha incorreta!";
+          return;
+        }
+        if (hoje > expira) {
+          errorDiv.textContent = "Plano expirado!";
+          return;
+        }
+
+        // Login OK
+        window.location.href = "menu.html";
+      } else {
+        errorDiv.textContent = "Usuário não encontrado!";
+      }
+    } catch (err) {
+      errorDiv.textContent = "Erro ao acessar o banco!";
+      console.error(err);
+    }
+  }
+
+  // Tornar login acessível para onclick
+  window.login = login;
+
+  // Abrir Telegram
+  window.abrirTelegram = () => {
+    window.open("https://t.me/DelySet", "_blank");
+  };
+</script>
+
+</body>
+</html>

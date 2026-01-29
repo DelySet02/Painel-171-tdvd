@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Outros</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:25px;
+  text-shadow:0 0 10px #ff0000;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* CARDS */
+.card{
+  background:#111;
+  border:2px solid rgba(255,0,0,.35);
+  border-radius:20px;
+  padding:15px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(255,0,0,.7);
+}
+
+.card img{
+  width:100%;
+  height:120px;
+  object-fit:contain;
+  margin-bottom:10px;
+}
+
+.card span{
+  font-weight:bold;
+  font-size:16px;
+  color:#fff;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:20px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 0 35px #ff0000;
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:10px;
+}
+
+.alert p{
+  font-size:14px;
+  line-height:1.4;
+}
+
+.alert button{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff0000;
+}
+
+.voltar img{
+  width:28px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Outros ⚡</h1>
+
+<div class="grid">
+  <!-- Cripto -->
+  <div class="card" onclick="abrir('Cripto')">
+    <img src="imagem/btc.png" alt="Cripto">
+    <span>Cripto</span>
+  </div>
+
+  <!-- Hot -->
+  <div class="card" onclick="abrir('Hot')">
+    <img src="imagem/hot.png" alt="Hot">
+    <span>Hot</span>
+  </div>
+
+  <!-- Pix -->
+  <div class="card" onclick="abrir('Pix')">
+    <img src="imagem/pix.png" alt="Pix">
+    <span>Pix</span>
+  </div>
+
+  <!-- Nfc -->
+  <div class="card" onclick="abrir('Nfc')">
+    <img src="imagem/nfc.png" alt="Nfc">
+    <span>Nfc</span>
+  </div>
+
+  <!-- Cassino -->
+  <div class="card" onclick="abrir('Cassino')">
+    <img src="imagem/cassino.png" alt="Cassino">
+    <span>Cassino</span>
+  </div>
+
+  <!-- API -->
+  <div class="card" onclick="abrir('API')">
+    <img src="imagem/api.png" alt="API">
+    <span>API</span>
+  </div>
+
+  <!-- Logins -->
+  <div class="card" onclick="abrir('Logins')">
+    <img src="imagem/login.png" alt="Logins">
+    <span>Logins</span>
+  </div>
+
+  <!-- Vips -->
+  <div class="card" onclick="abrir('Vips')">
+    <img src="imagem/vip.png" alt="Vips">
+    <span>Vips</span>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2 id="titulo"></h2>
+    <p>Conteúdo indisponível nesta versão.</p>
+    <button onclick="fechar()">Fechar</button>
+  </div>
+</div>
+
+<!-- VOLTAR MENU -->
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Menu">
+</div>
+
+<script>
+function abrir(t){
+  document.getElementById("titulo").innerText = t;
+  document.getElementById("overlay").style.display = "flex";
+}
+
+function fechar(){
+  document.getElementById("overlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>

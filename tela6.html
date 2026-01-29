@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - VPN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* ITENS */
+.item{
+  background:#111;
+  border:1px solid rgba(255,0,0,.35);
+  border-radius:16px;
+  padding:14px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.item:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 22px rgba(255,0,0,.6);
+}
+
+.item span{
+  font-weight:bold;
+  font-size:15px;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:20px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 0 35px #ff0000;
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:10px;
+}
+
+.alert p{
+  font-size:14px;
+  line-height:1.4;
+}
+
+.alert button{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff0000;
+}
+
+.voltar img{
+  width:28px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>VPN 🔐</h1>
+
+<div class="lista" id="lista"></div>
+
+<!-- ALERT -->
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2 id="titulo"></h2>
+    <p id="texto"></p>
+    <button onclick="fechar()">Fechar</button>
+  </div>
+</div>
+
+<!-- VOLTAR MENU -->
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Menu">
+</div>
+
+<script>
+const vpns = [
+ ["Proton VPN","VPN gratuita com foco em privacidade. Possui plano grátis limitado."],
+ ["Windscribe","Oferece versão gratuita com limite mensal de dados."],
+ ["TunnelBear","VPN simples, ideal para iniciantes, com versão gratuita limitada."],
+ ["Atlas VPN","Plano grátis com poucos servidores disponíveis."],
+ ["Hide.me","VPN com opção gratuita e política de não registro."],
+ ["Hotspot Shield","Versão gratuita com limite diário de uso."],
+ ["ZoogVPN","Plano grátis com dados mensais limitados."],
+ ["PrivadoVPN","VPN com versão gratuita e criptografia básica."],
+ ["VPN.lat","Serviço simples com acesso gratuito em alguns países."],
+ ["Speedify","VPN focada em estabilidade, com plano grátis limitado."]
+];
+
+const lista = document.getElementById("lista");
+
+vpns.forEach(v=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.innerHTML=`<span>${v[0]}</span>`;
+  div.onclick=()=>abrir(v[0],v[1]);
+  lista.appendChild(div);
+});
+
+function abrir(t,txt){
+  document.getElementById("titulo").innerText=t;
+  document.getElementById("texto").innerText=txt;
+  document.getElementById("overlay").style.display="flex";
+}
+
+function fechar(){
+  document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

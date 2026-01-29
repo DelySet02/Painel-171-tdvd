@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - 33</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES TEXTO */
+.item-texto{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.4);
+  border-radius:15px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+
+.item-texto:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 25px rgba(255,0,0,0.5);
+  border-color:#ff0000;
+  background:#1a1a1a;
+}
+
+.item-texto i {
+  color:#ff0000;
+  font-size:22px;
+  width:30px;
+  text-align:center;
+}
+
+.item-texto span{
+  font-weight:bold;
+  font-size:16px;
+  color:#fff;
+  flex:1;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  backdrop-filter:blur(8px);
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:25px;
+  width:90%;
+  max-width:500px;
+  max-height:85vh;
+  overflow-y:auto;
+  box-shadow:0 0 50px #ff0000;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:20px;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.alert h2 i {
+  font-size:20px;
+}
+
+.alert-content {
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-line;
+  background:#151515;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #222;
+  max-height:50vh;
+  overflow-y:auto;
+}
+
+.alert-content strong {
+  color:#ff9900;
+  display:block;
+  margin-bottom:10px;
+  font-size:16px;
+}
+
+.alert button{
+  margin-top:20px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition:opacity .2s;
+  font-size:16px;
+}
+
+.alert button:hover{
+  opacity:0.9;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:50;
+  transition:transform .3s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 35px #ff0000;
+}
+
+.voltar img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-user-secret"></i> 33 - Tráfico</h1>
+
+<div class="lista">
+  <!-- PATRÃO / CHEFE -->
+  <div class="item-texto" onclick="abrirTexto('Patrão / Chefe', patraoTexto)">
+    <i class="fas fa-crown"></i>
+    <span>Patrão / Chefe</span>
+  </div>
+
+  <!-- GERENTE -->
+  <div class="item-texto" onclick="abrirTexto('Gerente', gerenteTexto)">
+    <i class="fas fa-user-tie"></i>
+    <span>Gerente</span>
+  </div>
+
+  <!-- DISCIPLINA -->
+  <div class="item-texto" onclick="abrirTexto('Disciplina', disciplinaTexto)">
+    <i class="fas fa-gavel"></i>
+    <span>Disciplina</span>
+  </div>
+
+  <!-- VAPOR -->
+  <div class="item-texto" onclick="abrirTexto('Vapor', vaporTexto)">
+    <i class="fas fa-money-bill-wave"></i>
+    <span>Vapor</span>
+  </div>
+
+  <!-- MULA -->
+  <div class="item-texto" onclick="abrirTexto('Mula', mulaTexto)">
+    <i class="fas fa-truck"></i>
+    <span>Mula</span>
+  </div>
+
+  <!-- AVIÃOZINHO -->
+  <div class="item-texto" onclick="abrirTexto('Aviãozinho', aviaozinhoTexto)">
+    <i class="fas fa-box"></i>
+    <span>Aviãozinho</span>
+  </div>
+
+  <!-- OLHEIRO / FOGUETEIRO -->
+  <div class="item-texto" onclick="abrirTexto('Olheiro / Fogueteiro', olheiroTexto)">
+    <i class="fas fa-eye"></i>
+    <span>Olheiro / Fogueteiro</span>
+  </div>
+</div>
+
+<!-- ALERT DIALOG -->
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2><i class="fas fa-info-circle"></i> <span id="titulo"></span></h2>
+    <div class="alert-content" id="texto"></div>
+    <button onclick="fechar()"><i class="fas fa-times"></i> Fechar</button>
+  </div>
+</div>
+
+<!-- Botão voltar para tela2.html -->
+<div class="voltar" onclick="window.location='tela2.html'">
+  <img src="imagem/menu.png" alt="Voltar">
+</div>
+
+<script>
+// TEXTOS COMPLETOS
+const patraoTexto = `Patrão / Chefe
+
+Figura no topo da hierarquia.
+Exerce controle geral sobre o território e as decisões estratégicas, com baixa exposição direta.
+
+🔺 TOPO DA HIERARQUIA
+🔺 CONTROLE DO TERRITÓRIO  
+🔺 DECISÕES ESTRATÉGICAS
+🔺 BAIXA EXPOSIÇÃO DIRETA`;
+
+const gerenteTexto = `Gerente
+
+Responsável pela administração local.
+Coordena pessoas, controla fluxo e repassa ordens do comando para os níveis inferiores.
+
+📊 ADMINISTRAÇÃO LOCAL
+📊 COORDENAÇÃO DE PESSOAS  
+📊 CONTROLE DE FLUXO
+📊 REPASSE DE ORDENS`;
+
+const disciplinaTexto = `Disciplina
+
+Atua na manutenção da ordem interna.
+Fiscaliza regras, resolve conflitos e impõe punições dentro da estrutura.
+
+⚖️ MANUTENÇÃO DA ORDEM
+⚖️ FISCALIZAÇÃO DE REGRAS  
+⚖️ RESOLUÇÃO DE CONFLITOS
+⚖️ APLICAÇÃO DE PUNIÇÕES`;
+
+const vaporTexto = `Vapor
+
+Responsável pela venda direta ao usuário final.
+É um dos cargos mais visíveis e com maior risco de prisão.
+
+💵 VENDA DIRETA AO USUÁRIO
+💵 MAIOR VISIBILIDADE  
+💵 ALTO RISCO DE PRISÃO
+💵 CONTATO COM PÚBLICO FINAL`;
+
+const mulaTexto = `Mula
+
+Encarregado do transporte de substâncias ilícitas.
+Tem pouca autonomia e alto risco legal, sendo facilmente substituível.
+
+🚚 TRANSPORTE DE SUBSTÂNCIAS
+🚚 POUCA AUTONOMIA  
+🚚 ALTO RISCO LEGAL
+🚚 FACILMENTE SUBSTITUÍVEL`;
+
+const aviaozinhoTexto = `Aviãozinho
+
+Ocupa o nível mais baixo da hierarquia.
+Executa pequenas entregas, recados e tarefas simples, geralmente com alta vulnerabilidade social.
+
+📦 PEQUENAS ENTREGAS
+📦 EXECUÇÃO DE RECADOS  
+📦 TAREFAS SIMPLES
+📦 ALTA VULNERABILIDADE SOCIAL`;
+
+const olheiroTexto = `Olheiro / Fogueteiro
+
+Função de vigilância e alerta.
+Observa movimentações suspeitas e avisa os demais membros.
+
+👁️ VIGILÂNCIA E ALERTA
+👁️ OBSERVAÇÃO DE MOVIMENTAÇÕES  
+👁️ AVISO AOS MEMBROS
+👁️ SISTEMA DE ALERTA PREVENTIVO`;
+
+// Abrir texto no Alert
+function abrirTexto(titulo, conteudo) {
+  document.getElementById("titulo").innerText = titulo;
+  document.getElementById("texto").innerHTML = formatarTexto(conteudo);
+  document.getElementById("overlay").style.display = "flex";
+}
+
+// Formatar texto
+function formatarTexto(txt) {
+  return txt
+    .replace(/\n/g, '<br>')
+    .replace(/🔺/g, '🔺 ')
+    .replace(/📊/g, '📊 ')
+    .replace(/⚖️/g, '⚖️ ')
+    .replace(/💵/g, '💵 ')
+    .replace(/🚚/g, '🚚 ')
+    .replace(/📦/g, '📦 ')
+    .replace(/👁️/g, '👁️ ');
+}
+
+// Fechar alert
+function fechar() {
+  document.getElementById("overlay").style.display = "none";
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fechar();
+  }
+});
+</script>
+
+</body>
+</html>

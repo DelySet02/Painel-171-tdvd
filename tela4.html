@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Gerador de CC</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:30px;
+  text-shadow:0 0 10px #ff0000;
+}
+
+.card{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.4);
+  border-radius:15px;
+  padding:25px;
+  max-width:400px;
+  width:100%;
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.card i{
+  color:#ff0000;
+  font-size:40px;
+  margin-bottom:15px;
+}
+
+.card h2{
+  color:#fff;
+  margin-bottom:15px;
+  font-size:20px;
+}
+
+.card p{
+  color:#aaa;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.link-btn{
+  display:block;
+  background:#ff0000;
+  color:#fff;
+  text-decoration:none;
+  padding:12px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+  transition:all 0.3s;
+  margin-top:15px;
+}
+
+.link-btn:hover{
+  background:#cc0000;
+  transform:scale(1.05);
+  box-shadow:0 0 20px #ff0000;
+}
+
+.link-btn i{
+  margin-right:8px;
+  font-size:18px;
+}
+
+.warning{
+  background:rgba(255,100,0,0.1);
+  border:1px solid rgba(255,100,0,0.3);
+  border-radius:10px;
+  padding:15px;
+  margin-top:20px;
+  font-size:13px;
+  color:#ff9900;
+  max-width:400px;
+  width:100%;
+}
+
+.warning i{
+  margin-right:8px;
+}
+
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:10;
+}
+
+.voltar img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-credit-card"></i> Gerador de CC</h1>
+
+<div class="card">
+  <i class="fas fa-external-link-alt"></i>
+  <h2>Acesso Externo</h2>
+  <p>O site de geração de CC não permite ser aberto dentro de aplicativos. Clique no botão abaixo para acessar diretamente.</p>
+  
+  <a href="https://namso-gen.co/" target="_blank" class="link-btn">
+    <i class="fas fa-external-link-alt"></i> ABRIR GERADOR DE CC
+  </a>
+</div>
+
+<div class="warning">
+  <i class="fas fa-exclamation-triangle"></i>
+  <strong>Atenção:</strong> O site abrirá em uma nova aba. Use apenas para fins educacionais.
+</div>
+
+<!-- Botão voltar -->
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Menu">
+</div>
+
+</body>
+</html>

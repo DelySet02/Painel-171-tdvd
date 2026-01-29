@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Métodos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES */
+.item{
+  background:#111;
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:14px;
+  padding:14px;
+  cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.item:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 20px rgba(255,0,0,.6);
+}
+
+.item i {
+  color:#ff0000;
+  font-size:18px;
+  width:24px;
+  text-align:center;
+}
+
+.item span{
+  font-weight:bold;
+  font-size:15px;
+  flex:1;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  backdrop-filter:blur(5px);
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:25px;
+  width:90%;
+  max-width:500px;
+  max-height:80vh;
+  overflow-y:auto;
+  box-shadow:0 0 40px #ff0000;
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:15px;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.alert h2 i {
+  font-size:20px;
+}
+
+.alert-content {
+  font-size:15px;
+  line-height:1.6;
+  white-space:pre-line;
+  margin-bottom:20px;
+}
+
+.alert-content a {
+  color:#ff9900;
+  text-decoration:none;
+  word-break:break-all;
+}
+
+.alert-content a:hover {
+  text-decoration:underline;
+}
+
+.alert-buttons {
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.alert button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:opacity .2s;
+}
+
+.btn-fechar{
+  background:#ff0000;
+  color:#fff;
+  width:100%;
+}
+
+.alert button:hover{
+  opacity:0.9;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#ff0000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff0000;
+  z-index:50;
+  transition:transform .2s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+}
+
+.voltar img {
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-code"></i> Métodos do 7️⃣</h1>
+
+<div class="lista" id="lista"></div>
+
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2><i class="fas fa-info-circle"></i> <span id="titulo"></span></h2>
+    <div class="alert-content" id="texto"></div>
+    <div class="alert-buttons">
+      <button class="btn-fechar" onclick="fechar()"><i class="fas fa-times"></i> Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Menu">
+</div>
+
+<script>
+// MÉTODOS COMPLETOS (antigos + novos sem repetir)
+const dados = [
+  // MÉTODOS ANTIGOS (7 primeiros)
+  {
+    titulo: "Como aprovar gift card na cc",
+    descricao: `Como aprovar gift card na cc
+
+Primeiramente entra no site da Kabum
+
+Cria um login novo com tudo batendo com o bico da cc
+
+Esquenta o login pega e adiciona umas coisas no carrinho se possível compra algo só pra esquenta mesmo
+
+e pega uma cc nubank e add o card
+
+Primeiro pedido até 100$ depois espanca`,
+    icon: "fas fa-gift"
+  },
+  {
+    titulo: "Abrir Lara para receber cripto",
+    descricao: `Esquema abrir Lara para receber cripto moedas
+
+Bagulho simples rapaziada, só pegar dados full de algum bico com score bom (Opcional) abre o SITE e coloca tudo certinho, recebe o sms e o email, feito isso vai pra análise, aprova em menos de 1 minuto, baixe o app na play store e faça o login e pronto, lara aberta com sucesso.
+
+Link:
+https://conta.mercadobitcoin.com.br/cadastro`,
+    icon: "fas fa-wallet"
+  },
+  {
+    titulo: "Esquema 99pay",
+    descricao: `Esquema 99pay
+
+1-Faça o Cadastro No 99Pay Com Dados Reais
+
+2-Pegue Uma CC Da Bin 498406(Recomendo Fazer Com Consu, Pois As Vzs Pede Verificação)
+
+3-Se a CC For adicionada você faz uma recarrega de 100,se passar tenta passar mais
+
+4-Depois Do Saldo Adicionado, Gere Um Boleto Em Uma Lara Sua
+
+5-Pague o Boleto Com o Saldo e Espere Cair.`,
+    icon: "fas fa-money-bill-transfer"
+  },
+  {
+    titulo: "Empréstimo na conta de luz",
+    descricao: `Método empréstimo na conta de luz
+
+Não é a concessionária que realiza o empréstimo, mas sim a financeira.
+
+Algumas das empresas que oferecem empréstimo em conta de luz mais conhecidas são:
+- Reais
+- Piki
+- CredFaz
+- PlanCredi
+- MetaSimples
+
+Documentos necessários para solicitar:
+- Carteira de trabalho;
+- RG;
+- CPF;
+- Comprovante bancário;
+- Comprovante de residência de até dois meses.
+
+Após separar os documentos, é necessário fazer o cadastro completo no site da empresa que você escolher. O perfil do solicitante será analisado e se o crédito for aprovado, o cliente poderá receber o dinheiro emprestado na conta bancária em até 24 horas.`,
+    icon: "fas fa-hand-holding-usd"
+  },
+  {
+    titulo: "Lara PF/CNPJ Pc",
+    descricao: `Trampo Lara pf/CNPJ via Pc
+
+Passo 1 - Instala o ManyCam crackeado no seu PC, e em seguida instala o BlueStacks, abre o BlueStacks e o ManyCam ao mesmo tempo que vai aparecer pra configurar camera virtual gurizada
+
+Passo 2 - Uma conta google recém criada vincula lá no BlueStacks pra baixar os apps na playstore
+
+Passo 3 - Baixa o APP Impact Bank e começa o cadastro escolhe se é PF ou PJ, e preenche todos dados do kit bico batendo certinho
+
+Passo 4 - Quando chegar nos docs e na selfie, bota os docs no manycam, tira a foto no impact bank normal e a selfie faz a mesma coisa gurizada
+
+Passo 5 - Aprova na hora, bons trampos, creio que pelo AppCloner vai também esse banco é novo`,
+    icon: "fas fa-desktop"
+  },
+  {
+    titulo: "Dicas Bins/Carders",
+    descricao: `Dicas para Bins/carders
+
+Não existe bin específica de gg, matriz específica para spotify, Canva, scribd, mas você me diz, pq aprova? Porquê a maioria das gates gringas não verificaram cvv, pegamos como exemplo a Amazon.
+
+Você pode upar na gg bb do Brasil, nesses sites, Canva, spotify, scribd, HBO, e outros sites aí, mas oq realmente importa? O QUE REALMENTE IMPORTA É A VPN, bote isso na sua cabeça`,
+    icon: "fas fa-lightbulb"
+  },
+  {
+    titulo: "Esquema gift card submarino",
+    descricao: `Esquema gift card submarino
+
+1°. Primeiro, você precisará do valor do giftcard que você quer comprar. Mas calma! Não se desespera ou me xingue, você não vai perder NADA.
+
+2°. Vá no site do https://submarino.com.br crie uma conta e compra o giftcard que você quer VIA PIX,
+
+3°. Quando eles te enviarem o código do giftcard, você utiliza ele, sai da aba de onde você usou, entra nela de novo e coloca o giftcard novamente mas com o ultimo digito errado!
+
+4°. Quando aparecer a mensagem que você colocou um gift incorreto, printa ela,
+
+5° Vai lá no SubMarino e solicita devolução por produto errado. Se pedirem provas ou algo relacionado, é só enviar o print que você tirou. Se você fizer tudo certo vai estornar no pix ou vão te oferecer outro giftcard.
+
+→ Faça em contas diferentes pode ser novas ou antigas`,
+    icon: "fas fa-gift"
+  },
+  // NOVOS MÉTODOS ADICIONADOS
+  {
+    titulo: "Lara iti",
+    descricao: `Método Lara iti atualizado 26/12/25 Sem dá block na mesma hora
+
+Mesmo procedimento
+
+COMO CRIAR LARA SEM DOC
+
+Banco: iti
+
+1- tenha dados de menores, tipo com a data de nascimento de 2006 ou 2007
+
+2- abaixem o app da iti
+
+3- na parte do número você coloca um que nunca usou na iti
+
+4- eles vai pedi uma foto mais você pode coloca a sua mesma não vai dá nada
+
+5- ser for cria pra vende, sinto muito pois você não vai conseguir fazer mais Lara seu IP vai d block,
+
+6- essa conta e só pra lava dinheiro nada mais
+
+Quando for loga na Lara sempre usa o app`,
+    icon: "fas fa-mobile-alt"
+  },
+  {
+    titulo: "Método Shopee",
+    descricao: `MÉTODO SHOPEE Atualizado (Dezembro 2025 / 2026)
+
+Materiais Necessários: Dados com Score bom ou conta antiga Shopee
+
+1- Primeiro de tudo, limpa bem o seu celular (Sdmaid, Cc cleaner)
+
+2- Caso vc já tenha uma conta shopee, use ela mesmo (Por sua conta em risco "a conta vai de arrasta")
+
+3- Caso mal tenha uma conta, cria uma do zero usando dados de score +800 da sua cidade
+
+4- O email tem que ser de acordo com o nome do bico.
+
+Ex: Nome do bico é (fulano da Silva) vc vai criar um email batendo com esse nome (fulanodasilva@gmail.com)
+
+5- Criou a conta tudo certinho, faz a verificação de email e telefone na conta.
+
+6- Pega um número temporário mesmo pra fazer a verificação
+
+7- Vai navegando na conta por uns 30 minutos
+
+8- Add itens no carrinho, entra nas avaliações, etc etc. Pra que vc esquente a conta.
+
+9- Feito isso, vc vai comprar uma CC do banco ITAU, de preferência da Bin 527889 (Em um bot confiável de sua preferência).
+
+10- Vai nas configurações da conta na shopee e vai add o cartão
+
+11- Add o cartão, vc vai deixar a conta de molho de 1h a 2h.
+
+12- Fez isso, vc vai realizar a primeira compra no app, pedido de no máximo 100,00
+
+13- Na hora de add um endereço vc coloca um da sua cidade, de preferência (comercial) "mais indicado".
+
+14- Pedido aprovado, espera umas 2h pra realizar um novo pedido.
+
+15- O valor de cada item vc vai aumentando gradativamente.
+
+16- E é isso, seguindo o passo a passo não tem erro.`,
+    icon: "fas fa-shopping-cart"
+  },
+  {
+    titulo: "Golpe Do Material de Construção",
+    descricao: `🏗 Golpe do MATERIAL DE CONSTRUÇÃO. 🏠
+
+➡️ Materiais necessários:
+
+➡️ Um número fantasma que você vai usar no máximo 3 vezes.
+
+🗳 Um Facebook FAKE e extremamente bem montado.
+
+🍊 Uma LARA que aguente transações de 5 até 20 mil.
+
+➡️ Passo a passo:
+
+➡️ Vai pegar esse Facebook e entrar em grupos de FREESHOP ou Feira do Rolo, quanto mais cheio mais chance de sucesso.
+
+➡️ Vai anunciar materiais de construção a preços bons, se possivel faça um "catalogo" ou leve o atendimento ao WhatsApp.
+
+➡️ A cidade não importa, mas quando o cliente chamar é importante que você saiba a cidade.
+
+➡️ Fez isso, o cliente vai dizer o que quer, passa seu valor pra ele e marca a entrega dos materiais.
+
+➡️ Diga a ele que assim que o caminhão encostar é pra mandar o PIX se não o caminhão não vai descarregar.
+
+➡️ Ele vai concordar tudo certo e etc… Agora você procura um fornecedor de materiais de construção e vai falar com o fornecedor dizendo que precisa do que o cliente pediu.
+
+➡️ Envie o fornecedor ao endereço do cliente e diga que efetua o pagamento ao fim do descarregamento.
+
+➡️ Tá formado a arapuca, golpe semelhante ao do intermediário da OLX porém bem mais fácil, não tem erro e se tiver suma com o perfil e com o WhatsApp.`,
+    icon: "fas fa-hard-hat"
+  },
+  {
+    titulo: "Métodos Mercado livre",
+    descricao: `MÉTODO MERCADO LIVRE, ATUALIZADO (OUTUBRO / 2025)
+
+Primeiramente antes de tudo, você ira baixar um navegador anônimo;
+recomendo: Firefox Focus, duck duck Go e Brave.
+
+Feito isso, você irá fazer uma puxada de dados da sua região / cep,
+(qualquer grupo de puxadas tem), criar um email com os dados
+coincidindo aos dados da puxada feita.
+
+Exemplo: nome da puxada seria (fulano da Silva), você irá criar um e-mail
+com o seguinte aspecto: (fulanodasilva@emailescolhido.com)
+
+Com a ultilização do 4G (SEMPRE, SEM EXCEÇÃO) irá proseguir para a
+criação da conta no mercado livre usando um dos navegadores citados.
+
+Para ser feito a criação da conta, vc precisará de um número de celular,
+recomendo usar um número virtual, (barato, e sem rastro nenhum). Em
+qualquer bot de SMS voce encontra esses números, como exemplo o Notz.
+
+Após a criação da conta você deverá navegar pelo site, por uns minutos,
+vai adicionar um produto no carrinho, de até 150,00 e vai deixar a conta
+de molho uns minutos, (Não vai sair tentando comprar feito louco, logo
+após ter criado a conta), se agir feito louco desesperado, vai dar VBV na
+hora do pagamento
+
+Beleza, deixou a conta de molho, com o produto no carrinho, você vai
+acessar um bot de GG de confiança e comprar uma GG da bin 552289
+(Black).
+
+Comprou a GG vc vai acessar o carrinho e vai finalizar a compra, adiciona
+um endereço comercial (recomendo), onde já chega diversas encomendas,
+pra não chamar atenção de ninguém.
+
+Após ter adicionado a GG, e o endereço de forma correta é só finalizar o
+pedido.
+
+Se fez o passo a passo certinho irá passar de boa.
+
+OBS: AGUARDE O PEDIDO CHEGAR PRA JÁ METER OUTRO NOVAMENTE!
+COM PEDIDO DO DOBRO DO VALOR DO ANTERIOR...`,
+    icon: "fas fa-store"
+  },
+  {
+    titulo: "Método Chip Grátis (Vivo)",
+    descricao: `MÉTODO CHIP GRÁTIS (VIVO) COM INTERNET (NOVEMBRO / 2025)
+
+1. Materiais Necessários:
+Dados com Score bom +800 (tem em vários grupos de puxadas)
+Navegador limpo (recomendo: Firefox)
+Vontade pra fazer o trampo
+
+2. Você vai acessar o site:
+https://vivo.com.br/para-voce/produtos-e-servicos/para-ocelular/planos-pos-pago
+E escolher qualquer uma das opções.
+Após selecionar o plano, vc vai clicar em (PEDIR NOVO NÚMERO).
+
+3. E-SIM (Chip virtual):
+Se você tiver um celular com compatibilidade com E-SIM (Chip virtual), ativa a opção de pedir o E-SIM (A ativação já chega na hora no email, e é mais prático e sem burocracia).
+
+Caso seu celular não tenha compatibilidade com E-SIM, você precisará de um drop (Endereço), para chegar o chip físico.
+
+Após selecionar a opção compatível com o seu aparelho pode clicar em "CONTINUAR".
+
+4. Você irá preencher os dados conforme a puxada do bico de score alto:
+
+Nome completo: (Nome do bico)
+Telefone principal: (Pode colocar qualquer um)
+Email: (vai colocar um seu "não coloca email pessoal")
+CPF: (Do bico)
+Data de nascimento: (Do bico)
+
+5. Caso você tenha ativado a opção de E-SIM, você pode colocar qualquer endereço (até mesmo o do bico) / mas caso você não tenha celular compatível com E-SIM, você irá colocar um drop (endereço), pra chegada do chip físico (Sugiro um endereço comercial pra não chamar atenção).
+
+6. Após preenchido o endereço, vai aparecer a opção pra vc escolher o seu número do chip e a data de vencimento da fatura, (pode escolher qualquer um).
+
+7. Feito isso, pode clicar em (CONCLUIR PEDIDO).
+
+8. Após uns 20 minutos, vai chegar no email que o pedido foi aprovado.
+
+9. Só aguardar o envio do Chip físico no endereço cadastrado, ou; envio do E-SIM no email cadastrado.
+
+10. Internet e ligação de "graça" pra vocês.
+
+11. Obs: Caso de pedido cancelado: Basta trocar a puxada por outra e alterar o plano escolhido`,
+    icon: "fas fa-sim-card"
+  },
+  {
+    titulo: "MÉTODO CLARO com net e Chatgpt plus grátis",
+    descricao: `MÉTODO CLARO com muita internet + Bônus (Chatgpt plus grátis)
+
+1- Materiais Necessários:
+Dados com Score bom +800 (tem em vários grupos de puxadas)
+Navegador limpo (recomendo: Firefox)
+Vontade pra fazer o trampo
+
+2- Você vai acessar o site:
+https://loja.claro.com.br/c/planos-de-celular/controle
+E escolher qualquer uma das opções.
+
+3- Após escolher o plano, vc vai clicar em (EU QUERO!).
+Feito isso vc vai clicar em (Quero uma linha nova da Claro).
+
+4- Vai preencher as informações pedidas de acordo com os dados da puxada
+
+DDD - (É preenchido de forma automática)
+Celular de contato - (Você coloca o da puxada, mas altera o último número, Ex: o número do bico é 11999887766 vc vai substituir o último número por um diferente).
+Email: (Você vai colocar um seu mesmo "não coloque um pessoal").
+CPF: (Do bico)
+
+5- Vai preencher os dados novamente de acordo com os dados do bico.
+
+6- Na parte de endereço (Você vai preencher com qualquer dados se for pedir um e-sim ou com os seus dados se for pedir um chip físico "recomendo endereço comercial pra não dar nenhum problema").
+
+7- Após inserir os dados do endereço, vai selecionar se quer um E-sim ou chip físico e vai clicar em "CONTINUAR"
+
+8- Vai abrir uma tela para pagamento do plano
+
+9- Você vai deixar a opção de débito automático mesmo e vai inserir os dados manualmente do banco, agência e conta. (Siga o Passo 10 pra saber onde encontrar esses dados).
+
+10- Acesse: https://www.4devs.com.br/gerador_conta_bancaria
+E gere uma conta do banco BRADESCO e o estado de acordo com a localidade onde vc mora.
+
+11- Vai preencher os dados bancários de acordo com os dados gerados no site informado, e na opção de recebimento da fatura vc vai selecionar "EMAIL" como forma principal de recebimento.
+
+12- Data de vencimento vc coloca qualquer uma, aceita os termos, e clica novamente em "CONTINUAR".
+
+13- Pronto! Pedido feito, após alguns minutos o email de confirmação chega na caixa de entrada do email informando "Raramente chega no Spam".
+
+14- Aprovou o pedido, é só usar e ser feliz, "se pediu chip físico, demora cerca de 1 semana pra chegar".
+
+15- Fora a internet e chip grátis, vem acompanhado também 2 meses de chatgpt plus grátis, como complemento da oferta da claro.
+
+16- Caso cancele o pedido, é só alterar os dados do bico e o email.
+
+17- Método bom pra fazer vários pedidos e vender os chips`,
+    icon: "fas fa-wifi"
+  },
+  {
+    titulo: "Método Boticário",
+    descricao: `MÉTODO BOTICÁRIO ATUALIZADO / NOVEMBRO 2025
+
+1. Primeiro de tudo você precisará de dados do seu estado com score bom +800 (Tem em qualquer grupo de puxadas)
+
+2. Você criar um email batendo com os dados da puxada.
+
+Ex: o nome da puxada seria: Fulano Soares Silva
+
+Você irá criar um email com o mesmo nome: Fulanosoaressilva@emailescolhido.com
+
+3. Vai Acessar o site: www.boticario.com.br (USANDO SEMPRE O 4G E NAVEGADOR LIMPO SEM RASTRO DO 7)
+
+4. Vai criar uma conta com os dados do bico e o email que você criou
+
+5. Irá confirmar a criação da conta, no email tudo bonitinho
+
+6. Feito isso, vai cadastrar um endereço (Sugiro endereço comercial pra não chamar atenção quando for feita a entrega dos itens).
+
+7. Vai colocar Até dois produtos no carrinho, de valor baixo na 1ª compra (Até 150,00 o valor do carrinho total).
+
+8. Vai dar uma navegada no site, lendo comentários, adicionando produtos no carrinho e tudo mais (Pra não parecer suspeito e aprovar com mais facilidade) e vai deixar a conta de molho por 1h.
+
+9. Após ter deixado a conta de molho você vai novamente acessar o site e vai finalizar o pedido do primeiro carrinho adicionado (até 150,00).
+
+10. Vai confirmar as informações tudo bonitinho e quando pedir pagamento vc taca uma CC da BIN 550209 ou qualquer BIN Nubank
+
+11. Se fez o passo a passo bonitinho o pedido vai ser aprovado.
+
+12. Após alguns minutos a confirmação de pagamento chega no email.
+
+13. Após ter dropado o pedido no endereço, pode tacar mais de valores maiores.
+
+Explana não, e seja feliz.`,
+    icon: "fas fa-spray-can"
+  },
+  {
+    titulo: "Método Extorsão",
+    descricao: `ESTOCÃO! Atenção: Conteúdo pesado, tenho consciência do que vai fazer
+
+O alvo vai ser esses tarados FDP que fica nas redes sociais olhando perfil de menina de menor, mandando nuds e etc
+
+ME
+
+1° + Importante, tenha uma Lara
+
+2° Dois Facebook antigo sem postagens, não use Instagram
+
+3° Se tiver tela fake do Facebook, o esquema vai ficar 100%
+
+4° Faça um perfil de uma garota de menor, tenha fatos pra postar no perfil e feed, modifique 100% o Facebook, seja criativo
+
+5° Entre em grupos de amizades da sua cidade, ou de outras, vai da sua escolha
+
+6° Tenha um grupo ou painel de puxada
+
+7° Vai convidando, e esperando eles convidar, e vai aceitando os convites, responde quem chamar e chame que não falar nada
+
+8° Use engenharia social pra desenrolar as conversas, entre nas ideias do indivíduo
+
+9° Se tiver tela fake do Facebook, use um 2° Facebook, diga a o indivíduo, exemplo:
+
+"Me chama no outro face vida, esse o meu irmão tem a senha e entra às vezes" Ai vocês manda o link da tela fake pra hackear o Facebook
+
+! Mais antes de tentar hackear o face, faça isso a baixo
+
+ME
+
+- Vai conversando
+- Printis de todas as conversas
+- Peça nuds, vídeos e etc
+Peça o whatsapp
+- Puxada de dados
+- Pegue todos os dados dele, CPF, nome completo e etc
+
+Observe quem curte e comenta as publicações dele pra usar como ameaça de vazamento
+
+Após todos os requisitos, você vai atacar, ataque do jeito certo, pode pedir muito dinheiro
+
+Quando hackear o Facebook, troque todos os dados, entre no face com a tela gravando as conversas, pra se caso a vítima recupera, você tenha gravações
+
+NÃO USE SEUS DADOS BANCÁRIOS PRE RECEBER DINHEIRO SUJO
+
+NÃO USE ESSE MÉTODO PRA FERIR PESSOAS INOCENTES, LEMBRE-SE QUE O ALVO É OS TERADOS FDPS`,
+    icon: "fas fa-user-shield"
+  },
+  {
+    titulo: "Golpe do empréstimo",
+    descricao: `Golpe do empréstimo
+
+$- Vai precisar de um WhatsApp, nesse WhatsApp você vai montar o fake de alguma empresa de empréstimo, dá pra se passar por representante do Santander também e etc, recomendo se passar por uma empresa terceirizada, vocês vão entender no meio do trampo.
+
+$- Vai subir um Facebook também, recomendo comprar antigo e vai postar um anuncio mais ou menos dizendo que você realiza empréstimos e que cobra 10% do valor liberado, ou então diga que você realiza saque FGTS rápido e 10% do valor liberado também, vai ter que montar um anúncio mais ou menos assim.
+
+$ - Fez isso vai esperar as vítimas começarem a chamar, a plataforma que eu vou usar pra realizar os empréstimos não pede DOC e é a Losango. Enquanto conversa com o bico tu vai pedir os dados dele só pra fazer uma média, mas com o CPF dele tu sobe uma puxada boa e já faz o cadastro no Losango e vê se libera.
+
+$ - Se liberar você vai falar com o bico, que liberou o valor lá, e diga que o pagamento começa daqui 90 dias, convença o bico de pegar o empréstimo, pede a conta e agência dele, e quando cair pede pra ele pagar um boleto que você vai enviar com os 10% valor exato certinho, se vocês conseguirem alguma lábia pra pegar a grana toda é boa, mas a tática que eu subi foi essa, bons trampos gurizada`,
+    icon: "fas fa-hand-holding-usd"
+  },
+  {
+    titulo: "Criar contas em apps anonimamentes",
+    descricao: `Criar contas em apps anonimamentes
+
+Método colher dados completo para aprovação fácil, Criar contas em apps anonimamente, Entre outros
+
+ME
+
+Masculino/Feminino
+
+Iremos trabalhar com engenharia nova, Funciona da seguinte forma Irá criar uma conta em algum app que esteja lucruando
+
+Após isso vem os ensinamentos abaixo:
+
+1° Após criar a conta entre no app e se possível tente fazer um saque nem que seja de 15
+
+2° Fale que vai criar uma conta no app no nome da pessoa e que irá depositar 10 para fazer o esquema (tem que censurar o app pra pessoa não desconfiar) CPF
+
+3° Fale que o App pede Nome (Primeiro e sobrenome) Data de nascimento E Após a pessoa mandar, Consulte em algum Bot de dados ou em algum painel que soltarmos no grupo
+
+4° Após fazer tudo isso, Enrole a pessoa e faça algum jeito para sumir com ela e con todas print de sua conversa (recomendo bloquear e excluir o chat quando enviar Cpf e nome) )`,
+    icon: "fas fa-user-plus"
+  },
+  {
+    titulo: "golpe do curso",
+    descricao: `Golpe do Curso Online
+
+1. Monte um site profissional de cursos (WordPress + tema premium)
+2. Crie cursos genéricos: Marketing Digital, Investimentos, Python
+3. Use vídeos do YouTube editados como "aulas"
+4. Anuncie no Facebook/Instagram com depoimentos falsos
+5. Ofereça preço promocional (R$497 por R$97)
+6. Use gateway de pagamento fácil (Mercado Pago, PagSeguro)
+7. Após vender 50-100 cursos, desapareça com o site
+8. Mude de nicho e repita
+Observação: Ofereça "certificado" para dar mais credibilidade`,
+    icon: "fas fa-graduation-cap"
+  },
+  {
+    titulo: "Método pra Assusta Qualquer Um (Via SMS)",
+    descricao: `Pra começar não vamos deixar nosso número né amigo.
+
+Requisitos:
+
+- Internet
+- Conta PayPal
+
+1- vá na play story e pesquisa por (2Number) e instala.
+
+2- abra o aplicativo e faça login via Google, preencha as formações e as coisas sobre o número
+
+3- na hora do pagamento vai na terceira opção que tem algo relacionado a free" depois disso assina com a conta PayPal
+
+4- você já vai cair no inbox então é só clicar no "+" colocar o número e a mensagem
+
+(Não funciona como número fake pra receber sms!)`,
+    icon: "fas fa-sms"
+  },
+  {
+    titulo: "Netflix Grátis",
+    descricao: `Obtenha assinatura gratuita de 1 mês em seu e-mail
+
+Passo 1: Crie um novo Gmail
+
+Etapa 2: Vá para <Este site (https://shell.prinsh.com/Prinsley/)> e registre seu e-mail
+
+Etapa 3: aguarde 2 horas após 2 horas, sua conta será ativada com sucesso 100`,
+    icon: "fas fa-film"
+  },
+  {
+    titulo: "Método Subir Putas",
+    descricao: `MÉTODO SUBIR PUTAS
+
+AGORA C VAI TRANSA P CARALHO
+
+SITE: www fatalmodel com
+
+escolha uma ninfetinha de seu interesse da sua cidade.
+
+não leve ela na sua casa, procure as que tem lugar certo, p caso o estorno vim ela não ir te incomodar na tua baia
+
+ME
+
+se for no zap procure usar numero fake, caso o estorno vim a puta não incomoda.
+
+70% DAS GAROTAS DE PROGRAMA DA FATAL ACEITAM PAYPAL E SUMUP, PEÇA O LINK DE PAGAMENTO E PAGUE COM A CC, AS QUE ACEITAM PAYPAL DA PRA SUBIR COM GG!
+
+! NÃO ME RESPONSABILIZO SE TU UPAR UM TRAVECO, ESTORNAR E TU APANHAR DELES!
+
+LEMBRANDO: garanto o esquema, não a transa)`,
+    icon: "fas fa-female"
+  },
+  {
+    titulo: "Método Habibs",
+    descricao: `Passo 1 - No Ifood, você vai pedir qualquer coisa no Habibs, valor tanto faz, mas você vai precisar pagar obviamente, se conseguir pagar na CC mais lucro ainda pra você
+
+Passo 2 - Depois de ter pedido, vai fazer aquele esquema do reembolso, chama lá no Ifood e etc, eles vão te enviar um WPP pra você chamar gurizada, chama esse WPP com o mesmo número que seu Ifood esta cadastrado
+
+Passo 3 - Quando abrir o chat ja vai reconhecer sua conta, você vai seguindo as opções botando pra reembolso, lá eles vão perguntar qual item não veio no seu pedido, bota todos ou se quiser bota só metade, tanto faz
+
+Passo 4 - Em seguida vão te enviar um cupom pra gastar no próprio site do habibs, pegou o cupom ativa ele e já era, não é cupom de porcentagem, é cupom de saldo equivalente ao que você reembolsou gurizada`,
+    icon: "fas fa-utensils"
+  },
+  {
+    titulo: "Método Magalu",
+    descricao: `Cell 100% Limpo, E IP Sem BlackList Na Magalu.
+
+2- Vai Pegar Uma Consul Magalu, Dados Full Do Seu Estado E Que Não Tenha Saldo No Site Da Magalu, Score Até 950
+
+3- Com Dados Full Da Consul, Abre Um E-mail, E Sobe Um Chip No CPF Do Bico
+
+4 - Após Fazer Isso, Vai No Magalu, E Cria Uma Conta Com Todos Os Dados Batendo
+
+5- Escolhe Um Pedido De Até 80$, E Paga Ele Normalmente Sem Ser Na CC, Paga Com Seu Dinheiro Normalmente Pra Movimentar A Conta
+
+6- Depois Pega A Consul, Bota Até 1K De Primeira No Carrinho, E Sobe Normal. Como Sempre Endereço De Cobrança Do Bico, Drop Seu)`,
+    icon: "fas fa-box-open"
+  },
+  {
+    titulo: "Sonegar imposto",
+    descricao: `A prática é ilegal e pode ter consequências graves, incluindo multas pesadas e até mesmo problemas legais.
+
+ME
+
+Primeiramente, é importante separar sua renda e despesas para que possa manipulá-las de forma apropriada.
+
+Identifique oportunidades de esconder parte da renda, como não declarar ganhos extras ou receber pagamentos "por fora". Você também pode inflar suas despesas, criando recibos falsos ou registrando despesas inexistentes.
+
+Utilize contas bancárias no exterior para movimentar dinheiro e ocultar transações suspeitas.
+
+Considere criar empresas fictícias ou "laranjas" para desviar recursos e evitar que a origem do dinheiro seja rastreada.
+
+Nunca mencione essa prática a ninguém e seja cuidadoso para não levantar suspeitas.`,
+    icon: "fas fa-file-invoice-dollar"
+  }
+];
+
+// Criar os botões
+function criarLista() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = '';
+  
+  dados.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <i class="${item.icon}"></i>
+      <span>${item.titulo}</span>
+    `;
+    div.onclick = () => abrir(item.titulo, item.descricao);
+    lista.appendChild(div);
+  });
+}
+
+// Inicializar
+criarLista();
+
+// Abrir alert
+function abrir(t, txt) {
+  document.getElementById("titulo").innerText = t;
+  document.getElementById("texto").innerHTML = formatarTexto(txt);
+  document.getElementById("overlay").style.display = "flex";
+}
+
+// Formatar texto com links e quebras
+function formatarTexto(txt) {
+  return txt
+    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')
+    .replace(/\n/g, '<br>');
+}
+
+// Fechar alert
+function fechar() {
+  document.getElementById("overlay").style.display = "none";
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fechar();
+  }
+});
+</script>
+
+</body>
+</html>

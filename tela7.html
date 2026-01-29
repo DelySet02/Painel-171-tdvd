@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Linguagens do 7️⃣</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-height:75vh;
+  overflow-y:auto;
+  padding-right:5px;
+}
+
+/* BOTÕES */
+.item{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.3);
+  border-radius:16px;
+  padding:14px;
+  cursor:pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.item:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 25px #ff0000,0 0 50px #ff4c4c;
+}
+
+.item span{
+  font-weight:bold;
+  font-size:15px;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:20px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 0 40px #ff0000;
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:10px;
+}
+
+.alert p{
+  font-size:14px;
+  line-height:1.5;
+}
+
+.alert button{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+}
+
+.voltar img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Linguagens do 7️⃣</h1>
+
+<div class="lista" id="lista"></div>
+
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2 id="titulo"></h2>
+    <p id="texto"></p>
+    <button onclick="fechar()">Fechar</button>
+  </div>
+</div>
+
+<!-- Botão voltar -->
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Menu">
+</div>
+
+<script>
+// Lista de linguagens do 7️⃣
+const dados = [
+["Carder","Mexem com Fraudes de Cartão"],
+["CC/InfoCC","Cartão de Crédito"],
+["GG","Cartão de Crédito Gerado"],
+["BIN","Primeiros 6 Numeros do Cartão"],
+["Checker","Testador usado tanto para testar as CCs quanto Logins de Lojas"],
+["Live","Quando passa no testador"],
+["Die","Quando reprova no testador"],
+["CC Fuzil/Full","Quando a CC é boa"],
+["CC Consultavel","Quando vem com a senha do Cartão e voce pode consultar ela Online"],
+["InfoCC/CC Full","Dados do Dono do Cartão mais a CC"],
+["InfoBanker","Dados Bancarios com a conta do Banco"],
+["MIX","Exemplo 10Mix são 10 CCs aleatorias"],
+["UNITARIA","Venda de CC por Bin ou seja (Unitaria Classic)"],
+["Aprovação","Quando compra algo com cc, ccfull, Consul etc.."],
+["Apv","Aprovação"],
+["ML","Mercado Livre"],
+["Esquemas","Quando voce faz uma aprovação em algum site que sempre da certo"],
+["Trampos","Trabalho"],
+["Refs","Referencias"],
+["GP","Grupo"],
+["Drop","Endereço"],
+["Material","Quando o Vendedor possui as coisas"],
+["Editavel","Tudo que envolve Documentos"],
+["Lara","Conta de Laranja (CEF = Caixa IT = Itau BB = Banco do Brasil )"],
+["Extraviado","Desviado antes de chegar na casa do dono"],
+["DB","DataBase que pode ser tanto de CC ou de E-mail Consultas - Utiliza para pegar os dados pessoais das pessoas"],
+["Score","Pontual de Compra"],
+["Painel de Consultas (Central)","Aonde possui diversas formas de consultas desde puxar a score"],
+["Maquinetas","Maquina de Cartão de Credito"],
+["Fakes","Notas falsa"],
+["NF","Notas Falsas"],
+["PVC","Cartão de Credito (Fisico)"],
+["Cloner","Mexem com Clonagem de Cartão"],
+["Banker","Mexem com Fraudes Bancarias"],
+["Phreaker","Mexem com Fruades de Telefonia"],
+["Tela Fake","Site Falso seja de Loja ou de Banco"],
+["AppFake","Aplicativos Falsos para Celular seja eles de banco ou de lojas"],
+["Btc","Bitcoin"],
+["Logins","Login de Loja para aprovar mais facil"],
+["RECARGA","Colocar Credito no celular com CC/GG"],
+["Lotter","Caloteiros que dá golpe falso vendedor"],
+["BANNERS","Usado para divulgar seus trampo"],
+["50/50","Trampo que vai ser dividido os lucros já"]
+];
+
+// Criar os botões
+const lista = document.getElementById("lista");
+dados.forEach(d=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.innerHTML=`<span>${d[0]}</span>`;
+  div.onclick=()=>abrir(d[0],d[1]);
+  lista.appendChild(div);
+});
+
+// Abrir alert
+function abrir(t,txt){
+  document.getElementById("titulo").innerText=t;
+  document.getElementById("texto").innerText=txt;
+  document.getElementById("overlay").style.display="flex";
+}
+
+// Fechar alert
+function fechar(){
+  document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

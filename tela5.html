@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Vídeo Tutoriais</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:25px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES */
+.item{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.4);
+  border-radius:15px;
+  padding:16px;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+
+.item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 25px rgba(255,0,0,0.5);
+  border-color:#ff0000;
+  background:#1a1a1a;
+}
+
+.item-content{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.item i{
+  color:#ff0000;
+  font-size:22px;
+  width:30px;
+  text-align:center;
+}
+
+.item-text{
+  flex:1;
+}
+
+.item-title{
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:5px;
+  color:#fff;
+}
+
+.item-subtitle{
+  font-size:12px;
+  color:#aaa;
+}
+
+.item-arrow{
+  color:#ff9900;
+  font-size:18px;
+  opacity:0.7;
+}
+
+/* TELA DO VÍDEO */
+.video-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  backdrop-filter:blur(8px);
+}
+
+.video-container{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:20px;
+  width:95%;
+  max-width:800px;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow:0 0 50px #ff0000;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.video-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  padding-bottom:15px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.video-header h2{
+  color:#ff0000;
+  font-size:22px;
+  margin:0;
+  flex:1;
+}
+
+.video-close{
+  background:#ff0000;
+  border:none;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#fff;
+  font-size:18px;
+  transition:opacity .2s;
+}
+
+.video-close:hover{
+  opacity:0.9;
+}
+
+.video-wrapper{
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%; /* Proporção 16:9 */
+  height:0;
+  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.video-wrapper iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:12px;
+}
+
+.video-info{
+  background:#151515;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #222;
+  margin-top:15px;
+}
+
+.video-info p{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color:#ccc;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:50;
+  transition:transform .3s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 35px #ff0000;
+}
+
+.voltar img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-video"></i> Vídeo Tutoriais</h1>
+
+<div class="lista">
+  <!-- Engenharia Social -->
+  <div class="item" onclick="abrirVideo('Engenharia social, o que é e como funciona', 'RH311cRJX9U')">
+    <div class="item-content">
+      <i class="fas fa-brain"></i>
+      <div class="item-text">
+        <div class="item-title">Engenharia social</div>
+        <div class="item-subtitle">O que é e como funciona</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Flipper Zero -->
+  <div class="item" onclick="abrirVideo('Flipper Zero', 'NsYStuMVjTE')">
+    <div class="item-content">
+      <i class="fas fa-terminal"></i>
+      <div class="item-text">
+        <div class="item-title">Flipper Zero</div>
+        <div class="item-subtitle">Ferramenta hacker multifuncional</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Deep Web -->
+  <div class="item" onclick="abrirVideo('Deep Web para iniciantes', '7V4jWIYhX9c')">
+    <div class="item-content">
+      <i class="fas fa-user-secret"></i>
+      <div class="item-text">
+        <div class="item-title">Deep Web para iniciantes</div>
+        <div class="item-subtitle">Guia completo de introdução</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- VPN -->
+  <div class="item" onclick="abrirVideo('Não use VPN para privacidade', 'mdmLKq3IT8k')">
+    <div class="item-content">
+      <i class="fas fa-shield-alt"></i>
+      <div class="item-text">
+        <div class="item-title">Não use VPN para privacidade</div>
+        <div class="item-subtitle">Mitos e verdades sobre VPN</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Anonimato -->
+  <div class="item" onclick="abrirVideo('Como Ficar Anônimo na INTERNET em 7 minutos', '0MNgz4p3gJI')">
+    <div class="item-content">
+      <i class="fas fa-mask"></i>
+      <div class="item-text">
+        <div class="item-title">Como Ficar Anônimo na INTERNET</div>
+        <div class="item-subtitle">Guia rápido de 7 minutos</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Mr Robot -->
+  <div class="item" onclick="abrirVideo('5 ferramentas HACKERS do Mr Robot', 'YtUyI1uwaPM')">
+    <div class="item-content">
+      <i class="fas fa-tools"></i>
+      <div class="item-text">
+        <div class="item-title">5 ferramentas HACKERS do Mr Robot</div>
+        <div class="item-subtitle">Ferramentas reais da série</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+
+  <!-- Contas Secretas -->
+  <div class="item" onclick="abrirVideo('Descubra CONTAS SECRETAS de qualquer pessoa', 'lJ3lqipfe0M')">
+    <div class="item-content">
+      <i class="fas fa-search"></i>
+      <div class="item-text">
+        <div class="item-title">Descubra CONTAS SECRETAS</div>
+        <div class="item-subtitle">Técnicas de OSINT e investigação</div>
+      </div>
+      <i class="fas fa-play-circle item-arrow"></i>
+    </div>
+  </div>
+</div>
+
+<!-- TELA DO VÍDEO -->
+<div class="video-overlay" id="videoOverlay">
+  <div class="video-container">
+    <div class="video-header">
+      <h2 id="videoTitle"></h2>
+      <button class="video-close" onclick="fecharVideo()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="video-wrapper">
+      <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <div class="video-info">
+      <p>Vídeo carregado do YouTube. Assista em tela cheia para melhor experiência.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Botão voltar para menu.html -->
+<div class="voltar" onclick="window.location='menu.html'">
+  <img src="imagem/menu.png" alt="Voltar">
+</div>
+
+<script>
+// Array de vídeos
+const videos = [
+  {
+    id: 'RH311cRJX9U',
+    titulo: 'Engenharia social, o que é e como funciona',
+    descricao: 'Aprenda sobre técnicas de manipulação psicológica usadas por hackers'
+  },
+  {
+    id: 'NsYStuMVjTE',
+    titulo: 'Flipper Zero',
+    descricao: 'Tudo sobre a ferramenta hacker multifuncional Flipper Zero'
+  },
+  {
+    id: '7V4jWIYhX9c',
+    titulo: 'Deep Web para iniciantes',
+    descricao: 'Guia completo para começar a explorar a Deep Web com segurança'
+  },
+  {
+    id: 'mdmLKq3IT8k',
+    titulo: 'Não use VPN para privacidade',
+    descricao: 'Mitos e verdades sobre o uso de VPN para proteção online'
+  },
+  {
+    id: '0MNgz4p3gJI',
+    titulo: 'Como Ficar Anônimo na INTERNET em 7 minutos',
+    descricao: 'Técnicas rápidas para aumentar seu anonimato online'
+  },
+  {
+    id: 'YtUyI1uwaPM',
+    titulo: '5 ferramentas HACKERS do Mr Robot',
+    descricao: 'As ferramentas de hacking reais apresentadas na série Mr. Robot'
+  },
+  {
+    id: 'lJ3lqipfe0M',
+    titulo: 'Descubra CONTAS SECRETAS de qualquer pessoa',
+    descricao: 'Métodos de OSINT para encontrar contas ocultas em redes sociais'
+  }
+];
+
+// Abrir vídeo
+function abrirVideo(titulo, videoId) {
+  document.getElementById('videoTitle').innerText = titulo;
+  
+  // URL do YouTube embed
+  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+  
+  document.getElementById('videoFrame').src = videoUrl;
+  document.getElementById('videoOverlay').style.display = 'flex';
+  
+  // Pausar vídeo quando fechar
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      fecharVideo();
+    }
+  });
+}
+
+// Fechar vídeo
+function fecharVideo() {
+  document.getElementById('videoOverlay').style.display = 'none';
+  document.getElementById('videoFrame').src = ''; // Para parar o vídeo
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fecharVideo();
+  }
+});
+</script>
+
+</body>
+</html>

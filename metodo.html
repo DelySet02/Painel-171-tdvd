@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Métodos Hacker</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES TEXTO */
+.item-texto{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.4);
+  border-radius:15px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+
+.item-texto:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 25px rgba(255,0,0,0.5);
+  border-color:#ff0000;
+  background:#1a1a1a;
+}
+
+.item-texto i {
+  color:#ff0000;
+  font-size:22px;
+  width:30px;
+  text-align:center;
+}
+
+.item-texto span{
+  font-weight:bold;
+  font-size:16px;
+  color:#fff;
+  flex:1;
+}
+
+/* ALERT */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  backdrop-filter:blur(8px);
+}
+
+.alert{
+  background:#111;
+  border:2px solid #ff0000;
+  border-radius:18px;
+  padding:25px;
+  width:90%;
+  max-width:500px;
+  max-height:85vh;
+  overflow-y:auto;
+  box-shadow:0 0 50px #ff0000;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.alert h2{
+  color:#ff0000;
+  margin-bottom:20px;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.alert h2 i {
+  font-size:20px;
+}
+
+.alert-content {
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-line;
+  background:#151515;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #222;
+  max-height:50vh;
+  overflow-y:auto;
+}
+
+.alert-content strong {
+  color:#ff9900;
+  display:block;
+  margin-bottom:10px;
+  font-size:16px;
+}
+
+.alert-link {
+  display:block;
+  margin-top:15px;
+  padding:12px;
+  background:rgba(0,100,255,0.1);
+  border-radius:8px;
+  border:1px solid rgba(0,100,255,0.3);
+  text-align:center;
+  color:#0066ff;
+  text-decoration:none;
+  font-weight:bold;
+  transition:all 0.3s;
+}
+
+.alert-link:hover {
+  background:rgba(0,100,255,0.2);
+  transform:scale(1.02);
+}
+
+.alert-link i {
+  margin-right:8px;
+}
+
+.alert button{
+  margin-top:20px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition:opacity .2s;
+  font-size:16px;
+}
+
+.alert button:hover{
+  opacity:0.9;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:50;
+  transition:transform .3s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 35px #ff0000;
+}
+
+.voltar img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-code"></i> Métodos Hacker</h1>
+
+<div class="lista">
+  <!-- INSTAHACK -->
+  <div class="item-texto" onclick="abrirInstahack()">
+    <i class="fab fa-instagram"></i>
+    <span>Instahack</span>
+  </div>
+
+  <!-- CAMPHISHING -->
+  <div class="item-texto" onclick="abrirCamphishing()">
+    <i class="fas fa-camera"></i>
+    <span>CamPhishing</span>
+  </div>
+</div>
+
+<!-- ALERT DIALOG -->
+<div class="overlay" id="overlay">
+  <div class="alert">
+    <h2><i class="fas fa-info-circle"></i> <span id="titulo"></span></h2>
+    <div class="alert-content" id="texto"></div>
+    <button onclick="fechar()"><i class="fas fa-times"></i> Fechar</button>
+  </div>
+</div>
+
+<!-- Botão voltar para hack.html -->
+<div class="voltar" onclick="window.location='tela3.html'">
+  <img src="imagem/menu.png" alt="Voltar">
+</div>
+
+<script>
+// TEXTOS COMPLETOS
+const instahackTexto = `Instahack
+
+Instahack é um Bot do meu grupo rlk171tdvd
+
+Ele facilita muito para poder pegar o login de uma pessoa seja conhecida ou não. Ele usa uma tela fake que já está hospedada, ou seja, basta você pegar o link, mandar para o alvo e usar a engenharia social para dar certo.
+
+Assim que a pessoa loga na conta do Instagram pela tela fake, o login vai vir diretamente para o Bot que vai mandar no grupo no tópico "instahack".
+
+✅ PONTOS POSITIVOS:
+- Grátis
+- Fácil de usar
+- Tela de qualidade
+- Rapidez e eficiência
+
+❌ PONTOS NEGATIVOS:
+- Todos do grupo tem acesso pois é grátis 🤣
+
+🔗 ACESSO AO BOT: https://t.me/rlk171tdvd`;
+
+const camphishingTexto = `CamPhishing
+
+O CamPhishing também é um Bot do meu grupo rlk171tdvd porém ele tem funcionalidades diferentes.
+
+No caso, ele serve para poder capturar uma foto do rosto do alvo. Basta você enviar o link para o alvo, daí quando ele entrar vai passar por um CAPTCHA. Ele vai pedir acesso à câmera, a pessoa tem que permitir.
+
+Caso não permita, ela não passa pelo CAPTCHA e a imagem não vai chegar, já que os navegadores só permitem fotos sem a pessoa saber caso ela dê a permissão ou em algum momento já tenha dado.
+
+Ou seja, você precisa usar a engenharia social do jeito certo para que funcione.
+
+🎯 FUNCIONALIDADE:
+- Captura de fotos via câmera
+- Sistema de CAPTCHA falso
+- Engenharia social necessária
+- Bot automatizado
+
+⚠️ IMPORTANTE:
+- A pessoa precisa permitir acesso à câmera
+- Funciona melhor em dispositivos móveis
+- Requer persuasão para funcionar
+
+🔗 ACESSO AO BOT: https://t.me/rlk171tdvd`;
+
+// Função para abrir Instahack
+function abrirInstahack() {
+  document.getElementById("titulo").innerText = "Instahack";
+  document.getElementById("texto").innerHTML = formatarTexto(instahackTexto);
+  document.getElementById("overlay").style.display = "flex";
+}
+
+// Função para abrir CamPhishing
+function abrirCamphishing() {
+  document.getElementById("titulo").innerText = "CamPhishing";
+  document.getElementById("texto").innerHTML = formatarTexto(camphishingTexto);
+  document.getElementById("overlay").style.display = "flex";
+}
+
+// Formatar texto
+function formatarTexto(txt) {
+  return txt
+    .replace(/\n/g, '<br>')
+    .replace(/✅/g, '✅ ')
+    .replace(/❌/g, '❌ ')
+    .replace(/🎯/g, '🎯 ')
+    .replace(/⚠️/g, '⚠️ ')
+    .replace(/🔗/g, '🔗 ')
+    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="alert-link"><i class="fab fa-telegram"></i> Acessar Grupo Telegram</a>');
+}
+
+// Fechar alert
+function fechar() {
+  document.getElementById("overlay").style.display = "none";
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fechar();
+  }
+});
+</script>
+
+</body>
+</html>

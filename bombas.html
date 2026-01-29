@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>171 TDVD - Bombas Caseiras</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+  padding:20px;
+  overflow-y:auto;
+  min-height:100vh;
+}
+
+h1{
+  text-align:center;
+  color:#ff0000;
+  margin-bottom:25px;
+  text-shadow:0 0 10px #ff0000;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,0,0,0.3);
+}
+
+.lista{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:80px;
+}
+
+/* BOTÕES/LINKS */
+.link-item{
+  background:#111;
+  border:2px solid rgba(255,0,0,0.4);
+  border-radius:15px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  cursor:pointer;
+  transition:all 0.3s;
+  text-decoration:none;
+}
+
+.link-item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 25px rgba(255,0,0,0.5);
+  border-color:#ff0000;
+  background:#1a1a1a;
+}
+
+.link-item i {
+  color:#ff0000;
+  font-size:22px;
+  width:30px;
+  text-align:center;
+}
+
+.link-item span{
+  font-weight:bold;
+  font-size:16px;
+  color:#fff;
+  flex:1;
+}
+
+.link-item .arrow {
+  color:#ff9900;
+  font-size:18px;
+  opacity:0.7;
+}
+
+/* VOLTAR */
+.voltar{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 25px #ff0000;
+  z-index:50;
+  transition:transform .3s;
+}
+
+.voltar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 35px #ff0000;
+}
+
+.voltar img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<h1><i class="fas fa-bomb"></i> Bombas Caseiras</h1>
+
+<div class="lista">
+  <!-- COQUETEL MOLOTOV -->
+  <a class="link-item" href="https://drive.google.com/file/d/1Cb9clK_jz96hJqtjkN9uj_qGBm9jK8NY/view?usp=drivesdk" target="_blank">
+    <i class="fas fa-fire"></i>
+    <span>Como fazer coquetel molotov</span>
+    <i class="fas fa-external-link-alt arrow"></i>
+  </a>
+
+  <!-- BOMBA DE CARBURETO -->
+  <a class="link-item" href="https://drive.google.com/file/d/1Mf0JZbsoKb4LEZHqjx1uGNtrKrOacZrF/view?usp=drivesdk" target="_blank">
+    <i class="fas fa-explosion"></i>
+    <span>Bomba de Carbureto em Pedras</span>
+    <i class="fas fa-external-link-alt arrow"></i>
+  </a>
+</div>
+
+<!-- Botão voltar para proibido.html -->
+<div class="voltar" onclick="window.location='tela2.html'">
+  <img src="imagem/menu.png" alt="Voltar">
+</div>
+
+</body>
+</html>
